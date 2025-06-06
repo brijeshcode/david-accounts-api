@@ -17,7 +17,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('profile_photo_path', 2048)->nullable();
+            
             $table->rememberToken();
+            $table->text('note')->nullable()->comment('additional information for this entry');
+            $table->boolean('active')->default(true);
+
+            $table->unsignedBigInteger('created_by_id')->default('1')->comment('user who added this enty');
+            $table->ipAddress('created_by_ip')->nullable();
+            $table->string('created_by_agent', 1023)->nullable();
+
+           
+            $table->softDeletes();
             $table->timestamps();
         });
 

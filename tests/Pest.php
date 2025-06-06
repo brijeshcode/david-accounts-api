@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Sanctum\Sanctum;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -10,6 +12,8 @@
 | need to change it using the "pest()" function to bind a different classes or traits.
 |
 */
+
+use App\Models\User;
 
 pest()->extend(Tests\TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
@@ -41,7 +45,35 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
+function directSanctumLogin(){
+    $authUser = User::factory()->create();
+    Sanctum::actingAs($authUser);
+    return $authUser;
 }
+
+function login($user = null)
+{
+    return test()->actingAs($user ?? User::factory()->create(), 'sanctum');
+}
+
+function logout()
+{
+    // test()->post(route('v1.admin.logout'));
+}
+
+function asAdmin($user = null)
+{
+    // adminPermission();
+    return login($user);
+}
+
+// function adminPermission()
+// {
+//     $permissions = config('permissions');
+//     foreach($permissions as $modules) {
+//         foreach($modules as $permission)
+//         {
+//             Permission::updateOrCreate(['name' => $permission], [ 'role_id' => '1'] );
+//         }
+//     }
+// }
