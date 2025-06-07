@@ -1,6 +1,5 @@
 <?php
 
-use Laravel\Sanctum\Sanctum;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +12,12 @@ use Laravel\Sanctum\Sanctum;
 |
 */
 
+use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+use Spatie\Multitenancy\Tasks\SwitchTenantDatabaseTask;
+use Laravel\Sanctum\Sanctum;
+
 
 pest()->extend(Tests\TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
@@ -77,3 +81,10 @@ function asAdmin($user = null)
 //         }
 //     }
 // }
+
+
+expect()->extend('toExistInTenantDb', function ($table, array $data) {
+    test()->assertDatabaseHas($table, $data, 'tenant');
+
+    return $this;
+});

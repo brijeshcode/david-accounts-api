@@ -34,10 +34,11 @@ it('can store a new user', function () {
     $response->assertCreated()
              ->assertJsonFragment(['message' => 'User created successfully']);
 
-    $this->assertDatabaseHas('users', [
+    expect()->toExistInTenantDb('users', [
         'email' => 'john@example.com',
         'name'  => 'John Doe',
     ]);
+
 })->group('users.store');
 
 it('can update a user', function () {
@@ -54,7 +55,7 @@ it('can update a user', function () {
     $this->assertDatabaseHas('users', [
         'id' => $user->id,
         'name' => 'Updated Name',
-    ]);
+    ], 'tenant');
 })->group('users.update');
 
 it('can delete a user', function () {
@@ -67,7 +68,7 @@ it('can delete a user', function () {
     $this->assertDatabaseHas('users', [
         'id' => $user->id,
         'deleted_at' => now(), // Ensure it's soft deleted
-    ]);
+    ], 'tenant');
 
     $this->assertTrue($user->fresh()->trashed());
 

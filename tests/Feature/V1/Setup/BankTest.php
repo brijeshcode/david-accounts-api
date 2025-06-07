@@ -13,7 +13,9 @@ it('can get bank list', function (){
              ->assertJsonFragment(['message' => 'Banks List'])
              ->assertJsonStructure([
                  'data' => [['id', 'name', 'note', 'account_no']],
-             ]);
+             ])
+             ->assertJsonCount(3, 'data')
+             ;
 })->group('banks.index');
 
 it('can store a new bank', function(){
@@ -33,7 +35,7 @@ it('can store a new bank', function(){
     $this->assertDatabaseHas('banks', [
         'account_no' => '007154877454',
         'name'  => 'pnb',
-    ]);
+    ], 'tenant');
 
 })->group('banks.store');
 
@@ -50,7 +52,7 @@ it('can update a bank', function () {
     $this->assertDatabaseHas('banks', [
         'id' => $bank->id,
         'name' => 'Updated Name',
-    ]);
+    ], 'tenant');
 })->group('banks.update');
 
 it('can delete a bank', function () {
@@ -68,7 +70,7 @@ it('can delete a bank', function () {
     $this->assertDatabaseHas('banks', [
         'id' => $bank->id,
         'deleted_at' => now(), // Ensure it's soft deleted
-    ]);
+    ], 'tenant');
 
     $this->assertTrue($bank->fresh()->trashed());
 

@@ -62,6 +62,25 @@ return [
             ]) : [],
         ],
 
+        'tenant' => [
+            'driver' => 'mysql',
+            'database' => env('DB_TENANT_DATABASE', null),
+            'host' => '127.0.0.1',
+            'username' => 'root',
+            'password' => '',
+            // And other options if needed ...
+        ],
+
+        'landlord' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            // And other options if needed ...
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
