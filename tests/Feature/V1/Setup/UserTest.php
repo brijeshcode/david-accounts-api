@@ -64,9 +64,13 @@ it('can delete a user', function () {
 
     $response->assertNoContent();
 
-    $this->assertDatabaseMissing('users', [
+    $this->assertDatabaseHas('users', [
         'id' => $user->id,
+        'deleted_at' => now(), // Ensure it's soft deleted
     ]);
+
+    $this->assertTrue($user->fresh()->trashed());
+
 })->group('users.delete');
 
 it('fails validation on invalid data', function () {

@@ -60,9 +60,17 @@ it('can delete a bank', function () {
 
     $response->assertNoContent();
 
-    $this->assertDatabaseMissing('banks', [
+    // $this->assertDatabaseMissing('banks', [
+    //     'id' => $bank->id,
+    // ]);
+
+
+    $this->assertDatabaseHas('banks', [
         'id' => $bank->id,
+        'deleted_at' => now(), // Ensure it's soft deleted
     ]);
+
+    $this->assertTrue($bank->fresh()->trashed());
 
 })->group('banks.delete');
 
