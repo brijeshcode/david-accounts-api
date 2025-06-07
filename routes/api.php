@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Auth\LoginController;
+use App\Http\Controllers\V1\Setup\BankController;
 use App\Http\Controllers\V1\Setup\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ Route::prefix('v1')
         Route::prefix('setup')->name('setup.')->group(function () {
 
             Route::apiResource('users', UserController::class);
+            Route::apiResource('banks', BankController::class);
             
         });
 
