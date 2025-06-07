@@ -20,15 +20,9 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-        $data = $request->validated();
-        $data['created_by_id'] = auth()->id();
-        $data['created_by_ip'] = $request->ip();
-        $data['created_by_agent'] = $request->userAgent();
-
-        User::create($data);
+        User::create($request->validated());
 
         return ApiResponse::store('User created successfully');
-
     }
 
     public function show(User $user)

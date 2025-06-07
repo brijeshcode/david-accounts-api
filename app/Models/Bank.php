@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TrackCreatorInfo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 class Bank extends Model
 {
     /** @use HasFactory<\Database\Factories\BankFactory> */
-    use HasFactory, SoftDeletes, UsesTenantConnection;
+    use HasFactory, SoftDeletes, UsesTenantConnection, TrackCreatorInfo;
 
     protected $fillable = [
         'name',

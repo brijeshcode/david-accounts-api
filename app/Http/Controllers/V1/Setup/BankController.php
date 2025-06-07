@@ -21,15 +21,9 @@ class BankController extends Controller
 
     public function store(BankStoreRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $data['created_by_id'] = auth()->id();
-        $data['created_by_ip'] = $request->ip();
-        $data['created_by_agent'] = $request->userAgent();
-
-        Bank::create($data);
+        Bank::create($request->validated());
 
         return ApiResponse::store('Bank created successfully');
-
     }
 
     public function show(Bank $bank)
