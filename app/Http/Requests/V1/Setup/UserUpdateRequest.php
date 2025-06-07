@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests\V1\Setup;
 
+use App\Traits\CustomFailedValidation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UserUpdateRequest extends FormRequest
 {
+    use CustomFailedValidation;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,8 +26,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('user'))],
-            'password' => 'sometime|string|min:8|confirmed',
+            // 'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('user'))], // we should not update user email
+            'password' => 'sometimes|string|min:8|confirmed',
             'active' => 'boolean',
         ];
     }

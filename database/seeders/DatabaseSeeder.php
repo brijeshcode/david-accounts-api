@@ -21,5 +21,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'active' => true,
         ]);
+
+        // production seeders
+        // add user david and brijes data from seeder and rest user via user import option csv 
+ 
     }
 }

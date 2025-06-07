@@ -1,7 +1,6 @@
 <?php 
 
 use App\Models\User;
-use Illuminate\Support\Str;
 uses()->group('api', 'v1.api' , 'v1.setup', 'v1.users' );
 
 beforeEach(function () {
