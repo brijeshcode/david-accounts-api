@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Setup\BankController;
 use App\Http\Controllers\V1\Setup\CustomerController;
+use App\Http\Controllers\V1\Setup\ExternalServiceController;
 use App\Http\Controllers\V1\Setup\ServiceController;
 use App\Http\Controllers\V1\Setup\SupplierController;
 use App\Http\Controllers\V1\Setup\UserController;
@@ -25,6 +26,7 @@ Route::middleware([
         Route::apiResource('suppliers', SupplierController::class);
         Route::apiResource('warehouses', WarehouseController::class);
         Route::apiResource('services', ServiceController::class);
+        Route::apiResource('externalServices', ExternalServiceController::class);
         
         
     });
