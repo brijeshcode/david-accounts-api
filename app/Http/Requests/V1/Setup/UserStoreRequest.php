@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\V1\Setup;
 
-use App\Traits\CustomFailedValidation;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\TenantFormRequest;
 
-class UserStoreRequest extends FormRequest
+class UserStoreRequest extends TenantFormRequest
 {
-    use CustomFailedValidation;
     /**
      * Determine if the user is authorized to make this request.
      */

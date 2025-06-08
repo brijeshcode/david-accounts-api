@@ -80,4 +80,79 @@ it('can validate supplier data', function () {
              ->assertJsonValidationErrors(['name']);
 })->group('suppliers.validation');
 
+
+it('can validate unique supplier name', function () {
+    $supplier = Supplier::factory()->connection('tenant')->create(['name' => 'brijesh']);
+
+    $response = asAdmin()->postJson(route('v1.setup.suppliers.store'), [
+        'name' => 'brijesh',
+    ]);
+
+    $response->assertUnprocessable()
+             ->assertJsonValidationErrors(['name']);
+
+})->group('suppliers.validation');
+
+
+it('can create a new supplier with the name of a soft-deleted supplier', function () {
+    // Soft-deleted supplier
+    $supplier = Supplier::factory()->create(['name' => 'duplicate-supplier']);
+    $supplier->delete(); // soft delete
+
+    // Attempt to create a new one with same name
+    $response = asAdmin()->postJson(route('v1.setup.suppliers.store'), [
+        'name' => 'duplicate-supplier',
+    ]);
+
+    $response->assertCreated()
+             ->assertJsonFragment(['message' => 'Supplier created successfully']);
+
+    // Ensure 2 suppliers exist (1 soft deleted, 1 active)
+    $this->assertDatabaseCount('suppliers', 2, 'tenant');
+    $this->assertDatabaseHas('suppliers', [
+        'name' => 'duplicate-supplier',
+        'deleted_at' => null,
+    ], 'tenant');
+})->group('suppliers.validation');
+
+
+
+it('fails to update supplier name if already used in another active supplier', function () {
+    $supplier1 = Supplier::factory()->create(['name' => 'Supplier A']);
+    $supplier2 = Supplier::factory()->create(['name' => 'Supplier B']);
+
+    $response = asAdmin()->putJson(route('v1.setup.suppliers.update', $supplier2), [
+        'name' => 'Supplier A',
+    ]);
+
+    $response->assertUnprocessable()
+             ->assertJsonValidationErrors(['name']);
+})->group('suppliers.update');
+
+
+
+it('allows updating a supplier name that was soft-deleted from another record', function () {
+    // Create and soft-delete a supplier with the name "Deleted Supplier"
+    $deletedService = Supplier::factory()->create(['name' => 'Deleted Supplier']);
+    $deletedService->delete();
+
+    // Create another active supplier
+    $activeService = Supplier::factory()->create(['name' => 'Active Supplier']);
+
+    // Attempt to update active supplier to the same name as the soft-deleted one
+    $response = asAdmin()->putJson(route('v1.setup.suppliers.update', $activeService), [
+        'name' => 'Deleted Supplier',
+    ]);
+
+    $response->assertOk()
+             ->assertJsonFragment(['message' => 'Supplier updated successfully']);
+
+    // Make sure name is updated in the database
+    $this->assertDatabaseHas('suppliers', [
+        'id' => $activeService->id,
+        'name' => 'Deleted Supplier',
+        'deleted_at' => null,
+    ], 'tenant');
+})->group('suppliers.update');
+
 it('can validate in detail to each field');

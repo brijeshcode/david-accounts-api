@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\V1\Setup;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\TenantFormRequest;
+use Illuminate\Validation\Rule;
 
-class SupplierStoreRequest extends FormRequest
+class SupplierStoreRequest extends TenantFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,7 @@ class SupplierStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:150', 'min:2'],
+            'name' => ['required', 'string', 'max:150', 'min:2', Rule::unique('suppliers', 'name')->whereNull('deleted_at'),],
             'email' => ['sometimes', 'email', 'max:200', 'min:5'],
             'phone' => ['sometimes', 'string', 'max:20', 'min:5'],
             'address' => ['sometimes', 'string', 'max:250'],

@@ -15,7 +15,7 @@ class {{ class }} extends Controller
     public function index(): JsonResponse
     {
         ${{ modelVariable }}s = {{ model }}::paginate(10);
-        return ApiResponse::index('{{ model }} List', {{ model }}Resource::collection(${{ modelVariable }}s));
+        return ApiResponse::index('{{ model }}s List', {{ model }}Resource::collection(${{ modelVariable }}s));
     }
 
     public function store({{ model }}StoreRequest $request): JsonResponse

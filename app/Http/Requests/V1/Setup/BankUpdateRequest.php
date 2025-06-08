@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\V1\Setup;
 
-use App\Traits\CustomFailedValidation;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\TenantFormRequest;
+use Illuminate\Validation\Rule;
 
-class BankUpdateRequest extends FormRequest
+class BankUpdateRequest extends TenantFormRequest
 {
-    use CustomFailedValidation;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +23,13 @@ class BankUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => [
+                'required', 
+                'string',
+                Rule::unique('banks', 'name')
+                ->ignore($this->route('bank'))
+                ->whereNull('deleted_at'),
+            ],
             'starting_balance' => ['sometimes', 'numeric'],
             'balance' => ['sometimes', 'numeric'],
             'address' => ['sometimes', 'string', 'max:250'],
