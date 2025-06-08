@@ -63,7 +63,9 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
-        ]
+        ],
+        "phpstan" : "./vendor/bin/phpstan analyse -vvv",
+        "cs-fix": "vendor/bin/php-cs-fixer fix"
     },
     "extra": {
         "laravel": {

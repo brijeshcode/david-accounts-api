@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Traits\TrackCreatorInfo;
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }} extends Model
+{
+    use HasFactory, UsesTenantConnection, SoftDeletes, TrackCreatorInfo;
+
+    protected $fillable = [
+        // 
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_active', 1);
+    }
+}

@@ -1,0 +1,43 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Responses\V1\ApiResponse;
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedModel }};
+use App\Http\Resources\V1\Setup\{{ model }}Resource;
+use App\Http\Requests\V1\Setup\{{ model }}UpdateRequest;
+use App\Http\Requests\V1\Setup\{{ model }}StoreRequest;
+use Illuminate\Http\JsonResponse;
+
+class {{ class }} extends Controller
+{
+    public function index(): JsonResponse
+    {
+        ${{ modelVariable }}s = {{ model }}::paginate(10);
+        return ApiResponse::index('{{ model }} List', {{ model }}Resource::collection(${{ modelVariable }}s));
+    }
+
+    public function store({{ model }}StoreRequest $request): JsonResponse
+    {
+        {{ model }}::create($request->validated());
+        return ApiResponse::store('{{ model }} created successfully');
+    }
+
+    public function show({{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        return ApiResponse::send('{{ model }}', 200, new {{ model }}Resource(${{ modelVariable }}));
+    }
+
+    public function update({{ model }}UpdateRequest $request, {{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        ${{ modelVariable }}->update($request->validated());
+        return ApiResponse::update('{{ model }} updated successfully');
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        ${{ modelVariable }}->delete();
+        return ApiResponse::delete('{{ model }} deleted successfully');
+    }
+}
