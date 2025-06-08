@@ -30,7 +30,7 @@ class BankStoreRequest extends FormRequest
             'address' => ['sometimes', 'string', 'max:250'],
             'account_no' => ['sometimes', 'string', 'max:100'],
             'note' => ['sometimes', 'string'],
-            'active' => ['boolean']
+            'is_active' => ['boolean']
         ];
     }
 }

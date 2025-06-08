@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\V1\Setup;
 
-use App\Traits\CustomFailedValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BankUpdateRequest extends FormRequest
+class SupplierUpdateRequest extends FormRequest
 {
-    use CustomFailedValidation;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,11 +22,10 @@ class BankUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'starting_balance' => ['sometimes', 'numeric'],
-            'balance' => ['sometimes', 'numeric'],
+            'name' => ['required', 'string', 'max:150', 'min:2'],
+            'email' => ['sometimes', 'email', 'max:200', 'min:5'],
+            'phone' => ['sometimes', 'string', 'max:20', 'min:5'],
             'address' => ['sometimes', 'string', 'max:250'],
-            'account_no' => ['sometimes', 'string', 'max:100'],
             'note' => ['sometimes', 'string'],
             'is_active' => ['boolean']
         ];

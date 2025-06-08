@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'note' => $this->note,
-            'active' => $this->active,
+            'is_active' => $this->is_active,
             'created_by_id' => $this->created_by_id,
             'created_by_ip' => $this->created_by_ip,
             'created_by_agent' => $this->created_by_agent,

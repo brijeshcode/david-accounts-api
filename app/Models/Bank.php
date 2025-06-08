@@ -20,7 +20,7 @@ class Bank extends Model
         'address',
         'account_no',
         'note',
-        'active',
+        'is_active',
         'created_by_id',
         'created_by_ip',
         'created_by_agent',     

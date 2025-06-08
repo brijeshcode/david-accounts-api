@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
             'name' => 'required|string|max:255',
             // 'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('user'))], // we should not update user email
             'password' => 'sometimes|string|min:8|confirmed',
-            'active' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 }

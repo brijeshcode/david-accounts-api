@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('account_no', 100)->nullable();
 
             $table->text('note')->nullable()->comment('additional information for this entry');
-            $table->boolean('active')->default(true);
+            $table->boolean('is_active')->default(true);
 
             $table->unsignedBigInteger('created_by_id')->default('1')->comment('user who added this enty');
             $table->ipAddress('created_by_ip')->nullable();

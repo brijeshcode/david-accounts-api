@@ -24,7 +24,7 @@ class BankFactory extends Factory
             'address' => $this->faker->address,
             'account_no' => $this->faker->bankAccountNumber,
             'note' => $this->faker->sentence,
-            'active' => $this->faker->boolean(80), // 80% chance to be true
+            'is_active' => $this->faker->boolean(80), // 80% chance to be true
             'created_by_id' => 1, // Assuming admin user ID is 1
             'created_by_ip' => $this->faker->ipv4,
             'created_by_agent' => $this->faker->userAgent,

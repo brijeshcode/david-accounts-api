@@ -27,7 +27,7 @@ class CustomerStoreRequest extends FormRequest
             'phone' => ['sometimes', 'string', 'max:20', 'min:5'],
             'address' => ['sometimes', 'string', 'max:250'],
             'note' => ['sometimes', 'string'],
-            'active' => ['boolean']
+            'is_active' => ['boolean']
 
         ];
     }

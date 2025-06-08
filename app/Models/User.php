@@ -29,7 +29,7 @@ class User extends Authenticatable
         'current_team_id',
         'profile_photo_path',
         'note',
-        'active',
+        'is_active',
         'created_by_id',
         'created_by_ip',
         'created_by_agent',
