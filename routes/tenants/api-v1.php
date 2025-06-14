@@ -20,13 +20,13 @@ Route::middleware([
 
     Route::prefix('setup')->name('setup.')->group(function () {
 
-        Route::apiResource('users', UserController::class);
-        Route::apiResource('banks', BankController::class);
-        Route::apiResource('customers', CustomerController::class);
-        Route::apiResource('suppliers', SupplierController::class);
-        Route::apiResource('warehouses', WarehouseController::class);
-        Route::apiResource('services', ServiceController::class);
-        Route::apiResource('externalServices', ExternalServiceController::class);
+        Route::apiResource('users', UserController::class)->middleware('module:users');
+        Route::apiResource('banks', BankController::class)->middleware('module:banks');
+        Route::apiResource('customers', CustomerController::class)->middleware('module:customers');
+        Route::apiResource('suppliers', SupplierController::class)->middleware('module:suppliers');
+        Route::apiResource('warehouses', WarehouseController::class)->middleware('module:warehouses');
+        Route::apiResource('services', ServiceController::class)->middleware('module:services');
+        Route::apiResource('externalServices', ExternalServiceController::class)->middleware('module:externalServices');
         
         
     });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckTenantModule;
 use App\Http\Middleware\InitializeTenant;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -24,6 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // InitializeTenant::class;
         $middleware->append([
             InitializeTenant::class,
+        ]);
+
+        $middleware->alias([
+            'module' => CheckTenantModule::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

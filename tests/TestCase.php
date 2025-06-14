@@ -41,6 +41,10 @@ abstract class TestCase extends BaseTestCase
                 '--database' => 'tenant',
                 '--path' => '/database/migrations',
             ]);
+
+            $this->withoutMiddleware([
+                \App\Http\Middleware\CheckTenantModule::class,
+            ]);
         }
     }
 
