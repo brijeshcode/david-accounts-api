@@ -10,6 +10,12 @@ use App\Http\Responses\V1\ApiResponse;
 use App\Models\ExternalService;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup External services
+ * @subgroupDescription This is setup api for external services
+ */
 class ExternalServiceController extends Controller
 {
     public function index(): JsonResponse

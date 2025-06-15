@@ -11,14 +11,41 @@ use App\Models\Bank;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup Bank
+ * @subgroupDescription This is setup api
+ */
+
+ 
 class BankController extends Controller
 {
-    public function index(): JsonResponse
+    
+    /**
+     * Get list of banks
+     * 
+     * @queryParam int page 10
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         $banks = Bank::paginate(10);
         return ApiResponse::index('Banks List', BankResource::collection($banks));
     }
 
+    /**
+     * Create a new bank
+     * 
+     * @bodyParam name string required Bank name Example: Bank of America
+     * @bodyParam account_no string required Bank account number Example: 1234567890
+     * @bodyParam balance decimal required Initial balance of the bank Example: 1000.00
+     * @bodyParam starting_balance decimal required Starting balance of the bank Example: 0.00
+     * @bodyParam note string Bank note Example: This is a test bank
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(BankStoreRequest $request): JsonResponse
     {
         Bank::create($request->validated());

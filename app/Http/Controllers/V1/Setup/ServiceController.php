@@ -10,6 +10,13 @@ use App\Http\Responses\V1\ApiResponse;
 use App\Models\Service;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup Services
+ * @subgroupDescription This is setup api
+ */
+
 class ServiceController extends Controller
 {
     

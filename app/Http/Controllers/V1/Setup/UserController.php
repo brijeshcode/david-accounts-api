@@ -10,6 +10,12 @@ use App\Http\Responses\V1\ApiResponse;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @group Advance
+ * 
+ * @subgroup User
+ * @subgroupDescription This is Advance setup api
+ */
 class UserController extends Controller
 {
     public function index()

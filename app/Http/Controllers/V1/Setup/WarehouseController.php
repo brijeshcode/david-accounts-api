@@ -10,6 +10,12 @@ use App\Http\Responses\V1\ApiResponse;
 use App\Models\Warehouse;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup Warehouse
+ * @subgroupDescription This is setup api
+ */
 class WarehouseController extends Controller
 {
     public function index(): JsonResponse

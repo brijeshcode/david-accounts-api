@@ -10,6 +10,12 @@ use App\Http\Responses\V1\ApiResponse;
 use App\Models\Supplier;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup Supplier
+ * @subgroupDescription This is setup api
+ */
 class SupplierController extends Controller
 {
     public function index(): JsonResponse

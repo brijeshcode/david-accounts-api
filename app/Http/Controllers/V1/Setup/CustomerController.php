@@ -11,8 +11,19 @@ use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @group Setup
+ * 
+ * @subgroup Customer
+ * @subgroupDescription This is setup api
+ */
 class CustomerController extends Controller
 {
+    /**
+     * Get list of customers
+     * 
+     * list of customer avaialble in the system
+     */
     public function index(): JsonResponse
     {
         $customers = Customer::paginate(10);

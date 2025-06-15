@@ -11,6 +11,12 @@ use App\Models\ExpenseType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+ /**
+ * @group Setup
+ * 
+ * @subgroup Expense Type
+ * @subgroupDescription This is setup api
+ */
 class ExpenseTypeController extends Controller
 {
     public function index(Request $request): JsonResponse
