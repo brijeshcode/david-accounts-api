@@ -24,7 +24,6 @@ class TenantFeatureService
     public function hasModule(string $moduleKey, ?string $tenantId = null): bool
     {
         $tenantId = $tenantId ?? $this->getCurrentTenantId();
-        dd('stop');
         
         if (!$tenantId) {
             return false;

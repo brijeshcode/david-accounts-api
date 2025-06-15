@@ -110,6 +110,11 @@ return [
         ],
 
         // Expense Modules
+        'expense_types' => [
+            'name' => 'Expense Types',
+            'description' => 'Expense item categories',
+            'routes' => ['expense-types.*', 'setup.expense-types.*'],
+        ],
         'expense_articles' => [
             'name' => 'Expense Articles',
             'description' => 'Expense item categories',
@@ -239,7 +244,7 @@ return [
         'expense' => [
             'name' => 'Expense Management',
             'description' => 'Expense tracking and management',
-            'modules' => ['expense_articles', 'expenses', 'expense_payments'],
+            'modules' => ['expense_articles', 'expense_types', 'expenses', 'expense_payments'],
         ],
 
         'banking' => [
