@@ -173,6 +173,7 @@ return [
                 'Customer',
                 'Supplier',
                 'Expense Type',
+                'Expense Article',
                 'Services',
                 'Warehouse',
             ],

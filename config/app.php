@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'system_units' => [
+        'kg', 'gm', 'ltr', 'cl', 'ml', 'mtr', 'bottle', 'box', 'pack', 'unit',
+    ],
+
 ];

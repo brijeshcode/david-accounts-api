@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Setup\BankController;
 use App\Http\Controllers\V1\Setup\CustomerController;
+use App\Http\Controllers\V1\Setup\ExpenseArticleController;
 use App\Http\Controllers\V1\Setup\ExpenseTypeController;
 use App\Http\Controllers\V1\Setup\ExternalServiceController;
 use App\Http\Controllers\V1\Setup\ServiceController;
@@ -41,6 +42,18 @@ Route::middleware([
             Route::delete('/{expense_type}/force', 'forceDelete')->name('force');
             Route::patch('/{expense_type}/toggle-status', 'toggleStatus')->name('toggleStatus');
         })->middleware('module:expense_types');
+
+        Route::prefix('expense-articles')->name('expense-articles.')->controller(ExpenseArticleController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/tree', 'tree')->name('tree');
+            Route::get('/{expense_article}', 'show')->name('show');
+            Route::put('/{expense_article}', 'update')->name('update');
+            Route::delete('/{expense_article}', 'destroy')->name('destroy');
+            Route::post('/{expense_article}/restore', 'restore')->name('restore');
+            Route::delete('/{expense_article}/force', 'forceDelete')->name('force');
+            Route::patch('/{expense_article}/toggle-status', 'toggleStatus')->name('toggleStatus');
+        })->middleware('module:expense_articles');
         
     });
 
