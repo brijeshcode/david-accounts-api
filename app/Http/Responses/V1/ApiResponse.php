@@ -48,14 +48,19 @@ class ApiResponse
         return self::send($message, 200, $result);
     }
 
+    public static function show(string $message = 'Data', mixed $result = []): JsonResponse
+    {
+        return self::send($message, 200, $result);
+    }
+
     public static function store(string $message = 'Created successfully', mixed $result = []): JsonResponse
     {
         return self::send($message, 201, $result);
     }
 
-    public static function update(string $message = 'Updated successfully'): JsonResponse
+    public static function update(string $message = 'Updated successfully', mixed $result = []): JsonResponse
     {
-        return self::send($message, 200);
+        return self::send($message, 200, $result);
     }
 
     public static function delete(string $message = 'Deleted successfully'): JsonResponse
