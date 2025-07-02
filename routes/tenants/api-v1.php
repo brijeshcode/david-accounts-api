@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Auth\LoginController;
+use App\Http\Controllers\V1\Auth\LogoutController;
 use App\Http\Controllers\V1\Setup\BankController;
 use App\Http\Controllers\V1\Setup\CustomerController;
 use App\Http\Controllers\V1\Setup\ExpenseArticleController;
@@ -19,6 +20,7 @@ Route::middleware([
     // 'tenant.api' 
     ])->group(function () {
     
+    Route::post('/logout', LogoutController::class)->name('logout');
 
     Route::prefix('setup')->name('setup.')->group(function () {
 
