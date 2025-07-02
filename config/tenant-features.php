@@ -14,7 +14,7 @@ return [
             'description' => 'Manage user roles and permissions',
             'routes' => ['roles.*', 'permissions.*'],
         ],
-        'warehouse' => [
+        'warehouses' => [
             'name' => 'Warehouse Setup',
             'description' => 'Warehouse configuration',
             'routes' => ['warehouses.*', 'setup.warehouses.*'],
@@ -51,7 +51,7 @@ return [
             'description' => 'Product ingredient grouping',
             'routes' => ['ingredient-groups.*', 'setup.ingredient-groups.*'],
         ],
-        'purchase' => [
+        'purchases' => [
             'name' => 'Purchase Management',
             'description' => 'Purchase orders and receiving',
             'routes' => ['purchases.*', 'transaction.purchases.*'],
@@ -66,17 +66,17 @@ return [
             'description' => 'Return goods to suppliers',
             'routes' => ['purchase-returns.*', 'transaction.purchase-returns.*'],
         ],
-        'stock_transfer' => [
+        'stock_transfers' => [
             'name' => 'Stock Transfer',
             'description' => 'Transfer stock between warehouses',
             'routes' => ['stock-transfers.*', 'transaction.stock-transfers.*'],
         ],
-        'stock_manage' => [
+        'stock_manages' => [
             'name' => 'Stock Management',
             'description' => 'Stock adjustments and management',
             'routes' => ['stock-manage.*', 'transaction.stock-manage.*'],
         ],
-        'supplier_due' => [
+        'supplier_dues' => [
             'name' => 'Supplier Dues',
             'description' => 'Track supplier outstanding amounts',
             'routes' => ['supplier-dues.*', 'transaction.supplier-dues.*'],
@@ -139,12 +139,12 @@ return [
         ],
 
         // Gaming Modules
-        'cashin' => [
+        'cashins' => [
             'name' => 'Cash In',
             'description' => 'Customer cash deposits for gaming',
             'routes' => ['cashin.*', 'transaction.cashin.*'],
         ],
-        'cashout' => [
+        'cashouts' => [
             'name' => 'Cash Out',
             'description' => 'Customer cash withdrawals from gaming',
             'routes' => ['cashout.*', 'transaction.cashout.*'],
@@ -158,37 +158,37 @@ return [
         ],
 
         // Reporting Modules
-        'reports_bank' => [
+        'report_banks' => [
             'name' => 'Bank Reports',
             'description' => 'Banking transaction reports',
             'routes' => ['reports.bank.*'],
         ],
-        'reports_customer' => [
+        'report_customers' => [
             'name' => 'Customer Reports',
             'description' => 'Customer transaction history',
             'routes' => ['reports.customer.*'],
         ],
-        'reports_supplier' => [
+        'report_suppliers' => [
             'name' => 'Supplier Reports',
             'description' => 'Supplier transaction history',
             'routes' => ['reports.supplier.*'],
         ],
-        'reports_expense' => [
+        'report_expenses' => [
             'name' => 'Expense Reports',
             'description' => 'Expense analysis and reports',
             'routes' => ['reports.expense.*'],
         ],
-        'reports_sales' => [
+        'report_sales' => [
             'name' => 'Sales Reports',
             'description' => 'Sales performance reports',
             'routes' => ['reports.sales.*'],
         ],
-        'reports_stock' => [
+        'report_stocks' => [
             'name' => 'Stock Reports',
             'description' => 'Inventory and stock reports',
             'routes' => ['reports.stock.*'],
         ],
-        'reports_profit' => [
+        'report_profits' => [
             'name' => 'Profit Reports',
             'description' => 'Profit and loss statements',
             'routes' => ['reports.profit.*'],
@@ -219,7 +219,7 @@ return [
         'setup' => [
             'name' => 'Setup Management',
             'description' => 'Basic setup and configuration',
-            'modules' => ['users', 'roles', 'warehouse', 'customers', 'suppliers', 'banks', 'external_services'],
+            'modules' => ['users', 'roles', 'warehouses', 'customers', 'suppliers', 'banks', 'external_services'],
             'always_enabled' => true, // Always available
         ],
         
@@ -227,8 +227,8 @@ return [
             'name' => 'Inventory Management',
             'description' => 'Complete inventory and warehouse management',
             'modules' => [
-                'products', 'ingredient_groups', 'purchase', 'purchase_payments', 
-                'purchase_returns', 'stock_transfer', 'stock_manage', 'supplier_due'
+                'products', 'ingredient_groups', 'purchases', 'purchase_payments', 
+                'purchase_returns', 'stock_transfers', 'stock_manages', 'supplier_dues'
             ],
         ],
 
@@ -256,7 +256,7 @@ return [
         'gaming' => [
             'name' => 'Gaming Management',
             'description' => 'Cash in/out for gaming services',
-            'modules' => ['cashin', 'cashout'],
+            'modules' => ['cashins', 'cashouts'],
         ],
 
         'service' => [
@@ -269,8 +269,8 @@ return [
             'name' => 'Reporting',
             'description' => 'Comprehensive reporting system',
             'modules' => [
-                'reports_bank', 'reports_customer', 'reports_supplier', 
-                'reports_expense', 'reports_sales', 'reports_stock', 'reports_profit'
+                'report_banks', 'reports_customer', 'report_suppliers', 
+                'report_expenses', 'report_sales', 'report_stocks', 'report_profits'
             ],
         ],
 
@@ -291,15 +291,15 @@ return [
     'tenants' => [
         'club.david-accounts-v3.xammp' => [
             'enabled_features' => ['setup', 'expense', 'banking'],
-            'additional_modules' => ['reports_expense'], // Direct module assignment
+            'additional_modules' => ['report_expenses'], // Direct module assignment
             'disabled_modules' => [], // Override specific modules
             'notes' => 'Basic package + expense reports',
         ],
         
         'restaurant-xyz.com' => [
             'enabled_features' => ['setup', 'inventory', 'sales', 'expense', 'reports'],
-            'additional_modules' => ['cashin'], // Special case: only cash-in from gaming
-            'disabled_modules' => ['reports_profit'], // Remove profit reports
+            'additional_modules' => ['cashins'], // Special case: only cash-in from gaming
+            'disabled_modules' => ['report_profits'], // Remove profit reports
             'notes' => 'Full restaurant - no gaming except cash-in, no profit reports',
         ],
         
@@ -312,7 +312,7 @@ return [
         
         'warehouse-only.com' => [
             'enabled_features' => ['setup', 'inventory'],
-            'additional_modules' => ['reports_stock', 'reports_supplier'],
+            'additional_modules' => ['report_stocks', 'report_suppliers'],
             'disabled_modules' => ['purchase_returns'], // No returns allowed
             'notes' => 'Warehouse management + specific reports, no returns',
         ],
@@ -320,7 +320,7 @@ return [
         'custom-client.com' => [
             'enabled_features' => ['setup'],
             'additional_modules' => [
-                'products', 'purchase', 'expenses', 'reports_expense', 'reports_stock'
+                'products', 'purchases', 'expenses', 'report_expenses', 'report_stocks'
             ],
             'disabled_modules' => [],
             'notes' => 'Custom setup: only products, purchase, expenses with reports',
