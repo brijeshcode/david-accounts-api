@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\Multitenancy\Multitenancy;
 use Spatie\Multitenancy\TenantFinder\TenantFinder;
+use Spatie\Permission\PermissionRegistrar;
 
 class InitializeTenant
 {
@@ -19,6 +20,8 @@ class InitializeTenant
         if ($tenant) {
             config(['database.default' => 'tenant']);
             $tenant->makeCurrent();
+
+            app(PermissionRegistrar::class)->forgetCachedPermissions();
         }
 
         return $next($request);

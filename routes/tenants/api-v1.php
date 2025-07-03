@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\V1\Advance\PermissionController;
+use App\Http\Controllers\V1\Advance\RoleController;
 use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Auth\LogoutController;
+use App\Http\Controllers\V1\Auth\TenantInfoController;
 use App\Http\Controllers\V1\Setup\BankController;
 use App\Http\Controllers\V1\Setup\CustomerController;
 use App\Http\Controllers\V1\Setup\ExpenseArticleController;
@@ -21,6 +24,15 @@ Route::middleware([
     ])->group(function () {
     
     Route::post('/logout', LogoutController::class)->name('logout');
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');
+    Route::post('permissions/sync', [PermissionController::class, 'syncPermissions'])->name('permissions.sync');
+
+    Route::apiResource('roles', RoleController::class);
+    Route::post('roles/{role}/deactivate', [RoleController::class, 'deactivate']);
+    Route::get('permission-groups', [RoleController::class, 'permissionGroups']);
+    Route::patch('roles/{role}/toggle-status', [RoleController::class, 'toggleStatus']);
+    Route::get('available-modules', [TenantInfoController::class, 'availableModules'])->name('tenant.modules');
+    Route::get('profile', [TenantInfoController::class, 'show'])->name('profile.show');
 
     Route::prefix('setup')->name('setup.')->group(function () {
 

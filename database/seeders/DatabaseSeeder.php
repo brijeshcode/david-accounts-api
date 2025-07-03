@@ -27,3 +27,6 @@ class DatabaseSeeder extends Seeder
  
     }
 }
+
+//  php artisan tenants:artisan "migrate:fresh --seed" 
+//  php artisan tenants:artisan "migrate"

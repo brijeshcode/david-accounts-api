@@ -12,12 +12,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use  UsesTenantConnection, HasFactory, Notifiable, HasApiTokens, SoftDeletes, TrackCreatorInfo;
-
+    use  UsesTenantConnection, HasFactory, Notifiable, HasApiTokens, SoftDeletes, TrackCreatorInfo, HasRoles;
+    protected $guard_name = 'api';
     /**
      * The attributes that are mass assignable.
      *

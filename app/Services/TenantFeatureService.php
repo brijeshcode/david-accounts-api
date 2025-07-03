@@ -204,4 +204,9 @@ class TenantFeatureService
             Cache::forget("tenant_modules_{$tenantId}");
         }
     }
+
+    public function getAllowedPermissionGroups(): array
+    {
+        return array_keys($this->getTenantModules());
+    }
 }
