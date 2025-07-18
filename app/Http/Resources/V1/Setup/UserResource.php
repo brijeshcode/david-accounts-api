@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'created_by_id' => $this->created_by_id,
             'created_by_ip' => $this->created_by_ip,
             'created_by_agent' => $this->created_by_agent,
+            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
         ];
     }
 }

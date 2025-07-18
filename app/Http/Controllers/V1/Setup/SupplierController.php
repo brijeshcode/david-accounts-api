@@ -8,7 +8,9 @@ use App\Http\Requests\V1\Setup\SupplierUpdateRequest;
 use App\Http\Resources\V1\Setup\SupplierResource;
 use App\Http\Responses\V1\ApiResponse;
 use App\Models\Supplier;
+use App\Traits\HasPagination;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
  * @group Setup
@@ -18,10 +20,14 @@ use Illuminate\Http\JsonResponse;
  */
 class SupplierController extends Controller
 {
-    public function index(): JsonResponse
+    use HasPagination;
+
+    public function index(Request $request): JsonResponse
     {
-        $suppliers = Supplier::paginate(10);
-        return ApiResponse::index('Suppliers List', SupplierResource::collection($suppliers));
+        $query = Supplier::query();
+        $query->orderBy('created_at', 'desc');
+        $suppliers = $this->applyPagination($query, $request);
+        return ApiResponse::paginated('Users List', $suppliers, SupplierResource::class);
     }
 
     public function store(SupplierStoreRequest $request): JsonResponse

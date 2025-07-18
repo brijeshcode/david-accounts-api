@@ -8,6 +8,8 @@ use App\Http\Requests\V1\Setup\UserUpdateRequest;
 use App\Http\Resources\V1\Setup\UserResource;
 use App\Http\Responses\V1\ApiResponse;
 use App\Models\User;
+use App\Traits\HasPagination;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -18,10 +20,25 @@ use Illuminate\Http\Request;
  */
 class UserController extends Controller
 {
-    public function index()
+    use HasPagination;
+
+    public function index(Request $request): JsonResponse
     {
-        $users = User::paginate(10);
-        return ApiResponse::index('Users List', UserResource::collection($users));
+        $search = $request->input('search');
+        $query = User::query();
+        // Add search functionality
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+        
+        // Add sorting
+        $query->orderBy('created_at', 'desc');
+        $users = $this->applyPagination($query, $request);
+
+        return ApiResponse::paginated('Users List', $users, UserResource::class);
     }
 
     public function store(UserStoreRequest $request)

@@ -5,6 +5,7 @@ namespace App\Http\Responses\V1;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ApiResponse
 {
@@ -42,6 +43,36 @@ class ApiResponse
 
     }
 
+    /**
+     * Paginated response with resource transformation
+     */
+    public static function paginated(string $message, LengthAwarePaginator $paginator, ?string $resourceClass = null): JsonResponse
+    {
+        // Transform data using resource class if provided
+        $data = $resourceClass 
+            ? $resourceClass::collection($paginator->items())
+            : $paginator->items();
+
+        $response = [
+            'message' => $message,
+            'data' => $data,
+            'pagination' => [   
+                'current_page' => $paginator->currentPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+                'last_page' => $paginator->lastPage(),
+                'from' => $paginator->firstItem(),
+                'to' => $paginator->lastItem(),
+                'has_more_pages' => $paginator->hasMorePages(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+                'first_page_url' => $paginator->url(1),
+                'last_page_url' => $paginator->url($paginator->lastPage()),
+            ]
+        ];
+
+        return response()->json($response, 200);
+    }
     
     public static function index(string $message = '', mixed $result = []): JsonResponse
     {
