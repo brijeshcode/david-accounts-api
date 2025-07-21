@@ -64,7 +64,7 @@ it('can delete a supplier', function () {
 
     $this->assertDatabaseHas('suppliers', [
         'id' => $supplier->id,
-        'deleted_at' => now(), // Ensure it's soft deleted
+        'deleted_at' => now()->toDateTimeString(), // Ensure it's soft deleted
     ], 'tenant');
 
     $this->assertTrue($supplier->fresh()->trashed());

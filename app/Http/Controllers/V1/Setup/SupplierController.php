@@ -27,13 +27,13 @@ class SupplierController extends Controller
         $query = Supplier::query();
         $query->orderBy('created_at', 'desc');
         $suppliers = $this->applyPagination($query, $request);
-        return ApiResponse::paginated('Users List', $suppliers, SupplierResource::class);
+        return ApiResponse::paginated('Suppliers List', $suppliers, SupplierResource::class);
     }
 
     public function store(SupplierStoreRequest $request): JsonResponse
     {
-        Supplier::create($request->validated());
-        return ApiResponse::store('Supplier created successfully');
+        $supplier = Supplier::create($request->validated());
+        return ApiResponse::store('Supplier created successfully', $supplier);
     }
 
     public function show(Supplier $supplier): JsonResponse
@@ -44,7 +44,7 @@ class SupplierController extends Controller
     public function update(SupplierUpdateRequest $request, Supplier $supplier): JsonResponse
     {
         $supplier->update($request->validated());
-        return ApiResponse::update('Supplier updated successfully');
+        return ApiResponse::update('Supplier updated successfully', $supplier);
     }
 
     public function destroy(Supplier $supplier): JsonResponse
@@ -52,4 +52,28 @@ class SupplierController extends Controller
         $supplier->delete();
         return ApiResponse::delete('Supplier deleted successfully');
     }
+
+    public function all(Request $request): JsonResponse
+    {
+        $query = Supplier::query();
+        $query->orderBy('name', 'asc');
+        $suppliers = $query->get();
+        return ApiResponse::index('Suppliers List', SupplierResource::collection($suppliers));
+    }
+
+    public function active(Request $request): JsonResponse
+    {
+        $query = Supplier::query();
+        $query->active();
+        $query->orderBy('name', 'asc');
+        $suppliers = $query->get();
+        return ApiResponse::index('Active Suppliers List', SupplierResource::collection($suppliers));
+    }
+
+    public function trashed()
+    {
+        return Supplier::onlyTrashed()->get(); // If using soft deletes
+    }
+
+
 }

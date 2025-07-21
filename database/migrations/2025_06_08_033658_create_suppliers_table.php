@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email', 200)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('address', 200)->nullable();
-            $table->boolean('on_invoice')->default(false);
             
             $table->text('note')->nullable()->comment('additional information for this entry');
             $table->boolean('is_active')->default(true);

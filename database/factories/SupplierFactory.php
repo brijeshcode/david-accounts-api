@@ -19,7 +19,6 @@ class SupplierFactory extends Factory
         return [
             'name' => $this->faker->name,
             'address' => $this->faker->address,
-            'on_invoice' => true,
             'is_active' => true,
         ];
     }

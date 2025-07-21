@@ -39,7 +39,14 @@ Route::middleware([
         Route::apiResource('users', UserController::class)->middleware('module:users');
         Route::apiResource('banks', BankController::class)->middleware('module:banks');
         Route::apiResource('customers', CustomerController::class)->middleware('module:customers');
-        Route::apiResource('suppliers', SupplierController::class)->middleware('module:suppliers');
+
+        Route::prefix('suppliers')->name('suppliers.')->controller(SupplierController::class)->middleware('module:suppliers')->group(function () {
+            Route::get('all', 'all')->name('all');
+            Route::get('active', 'active')->name('active');
+            Route::get('trashed', 'trashed')->name('trashed');
+            Route::apiResource('', SupplierController::class)->parameters(['' => 'supplier']);
+        });
+
         Route::apiResource('warehouses', WarehouseController::class)->middleware('module:warehouses');
         Route::apiResource('services', ServiceController::class)->middleware('module:services');
         Route::apiResource('externalServices', ExternalServiceController::class)->middleware('module:externalServices');

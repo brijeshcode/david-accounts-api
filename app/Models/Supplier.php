@@ -14,7 +14,7 @@ class Supplier extends Model
     use HasFactory, UsesTenantConnection, SoftDeletes, TrackCreatorInfo;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'address', 'on_invoice', 'note', 'is_active'
+        'name', 'email', 'phone', 'address',  'note', 'is_active'
     ];
 
     protected $casts = [
