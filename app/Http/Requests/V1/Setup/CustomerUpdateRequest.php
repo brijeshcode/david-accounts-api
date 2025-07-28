@@ -19,10 +19,10 @@ class CustomerUpdateRequest extends TenantFormRequest
     {
         return [
             'name' => ['required', 'string', 'max:150', 'min:2', Rule::unique('customers', 'name')->ignore($this->route('customer'))->whereNull('deleted_at'),],
-            'email' => ['sometimes', 'email', 'max:200', 'min:5'],
-            'phone' => ['sometimes', 'string', 'max:20', 'min:5'],
-            'address' => ['sometimes', 'string', 'max:250'],
-            'note' => ['sometimes', 'string'],
+            'email' => ['sometimes', 'nullable', 'email', 'max:200', 'min:5'],
+            'phone' => ['sometimes', 'nullable', 'string', 'max:20', 'min:5'],
+            'address' => ['sometimes', 'nullable', 'string', 'max:250'],
+            'note' => ['sometimes', 'nullable', 'string'],
             'is_active' => ['boolean']
         ];
     }

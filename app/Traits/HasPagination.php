@@ -23,7 +23,7 @@ trait HasPagination
      */
     protected function getPerPage(Request $request): int
     {
-        $defaultPerPage = config('pagination.default_per_page', 15);
+        $defaultPerPage = config('pagination.default_per_page', 20);
         $maxPerPage = config('pagination.max_per_page', 2000);
         
         $perPage = (int) $request->input('per_page', $defaultPerPage);
