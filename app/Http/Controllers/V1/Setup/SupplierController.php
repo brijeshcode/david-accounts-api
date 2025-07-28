@@ -46,6 +46,7 @@ class SupplierController extends Controller
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('name', 'LIKE', "%{$searchTerm}%")
                 ->orWhere('email', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('note', 'LIKE', "%{$searchTerm}%")
                 ->orWhere('phone', 'LIKE', "%{$searchTerm}%")
                 ->orWhere('address', 'LIKE', "%{$searchTerm}%");
             });
